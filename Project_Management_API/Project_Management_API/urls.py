@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,3 +28,8 @@ urlpatterns = [
     path('api/tasks/', include('tasks.urls')),
     path('api/assignments/', include('assignments.urls')),
 ]
+
+# Add the token authentication endpoint
+urlpatterns += [
+    path('api/auth/token/', obtain_auth_token),
+] 

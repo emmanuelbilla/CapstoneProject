@@ -1,9 +1,11 @@
 from django.db import models
 from users.models import User
 from projects.models import Project
+from django.contrib.auth.models import User
 
 # Create your models here.
 class VolunteerAssignment(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='volunteer_assignments') # The user who created the assignment
     # ForeignKey to User model
     user = models.ForeignKey(
         User,

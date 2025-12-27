@@ -1,8 +1,10 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 
 class Project(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='projects') # The user who owns the project
+
     STATUS_CHOICES = [
         ('upcoming', 'Upcoming'),
         ('ongoing', 'Ongoing'),

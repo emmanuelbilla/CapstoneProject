@@ -1,8 +1,11 @@
 from django.db import models
 from projects.models import Project
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Task(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tasks') # The user who created the task
+    
     # ForeignKey to Project model
     project = models.ForeignKey(
         Project, 
