@@ -5,6 +5,7 @@ from rest_framework import generics
 from .models import Task
 from .serializers import TaskSerializer
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from core.permissions import IsOwnerOrReadOnly
 
 # List and Create Tasks
 class TaskListCreateView(generics.ListCreateAPIView):
@@ -19,3 +20,4 @@ class TaskListCreateView(generics.ListCreateAPIView):
 class TaskDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
+    permission_classes = [IsOwnerOrReadOnly] # Allows only owners to edit or delete

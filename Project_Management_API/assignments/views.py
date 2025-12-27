@@ -5,6 +5,7 @@ from rest_framework import generics
 from .models import VolunteerAssignment
 from .serializers import VolunteerAssignmentSerializer
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from core.permissions import IsOwnerOrReadOnly
 
 # List and Create Assignments
 class AssignmentListCreateView(generics.ListCreateAPIView):
@@ -19,3 +20,4 @@ class AssignmentListCreateView(generics.ListCreateAPIView):
 class AssignmentDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = VolunteerAssignment.objects.all()
     serializer_class = VolunteerAssignmentSerializer
+    permission_classes = [IsOwnerOrReadOnly] # Allows only owners to edit or delete
