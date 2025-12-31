@@ -4,7 +4,15 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Task(models.Model):
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tasks') # The user who created the task
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('in_progress', 'In Progress'),
+        ('completed', 'Completed'),
+    ]
+
+    owner = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='tasks'
+        ) # The user who created the task
     
     # ForeignKey to Project model
     project = models.ForeignKey(
@@ -18,10 +26,13 @@ class Task(models.Model):
     description = models.TextField()
     is_completed = models.BooleanField(default=False)
     due_date = models.DateField()
+    status = models.CharField(
+        max_length=20, choices=STATUS_CHOICES, default='pending'
+        )
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         # String representation of the Task
-        return f"{self.title} - {'Completed' if self.is_completed else 'Pending'}"
+        return f"{self.title} - {self.status.capitalize()}"
