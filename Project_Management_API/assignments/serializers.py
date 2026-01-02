@@ -4,9 +4,10 @@ from .models import VolunteerAssignment
 
 # Serializer for VolunteerAssignment model
 class VolunteerAssignmentSerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source='owner.username')
+    owner = serializers.HiddenField(
+        default=serializers.CurrentUserDefault()
+    )  # Automatically set the owner to the logged-in user
 
     class Meta:
         model = VolunteerAssignment
-        fields = ['id', 'owner', 'user', 'task', 'joined_at']
-        read_only_fields = ['owner', 'joined_at']
+        fields = '__all__'  # Include all fields of the model

@@ -43,11 +43,7 @@ class TestAssignmentsAPI:
             status='pending'
         )
 
-        self.assignment = VolunteerAssignment.objects.create(
-            owner=self.owner,
-            task=self.task,
-            user=self.assignee,
-        )
+      
 
     def test_anonymous_can_view_assignments(self):
         response = self.client.get(f'/api/assignments/')
@@ -66,10 +62,18 @@ class TestAssignmentsAPI:
 
 
     def test_non_owner_cannot_delete_assignment(self):
+        # First, create an assignment as the owner
+        assignment = VolunteerAssignment.objects.create(
+            owner=self.owner,
+            task=self.task,
+            user=self.assignee
+        )
+
+        # Authenticate as a non-owner user
         self.client.force_authenticate(user=self.other_user)
-
         response = self.client.delete(
-            f'/api/assignments/{self.assignment.id}/'
-            )
+            f'/api/assignments/{assignment.id}/'
+        )
 
+        # Assert that the response status code is 403 Forbidden
         assert response.status_code == status.HTTP_403_FORBIDDEN
