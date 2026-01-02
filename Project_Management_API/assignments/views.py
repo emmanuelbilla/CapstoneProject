@@ -14,7 +14,7 @@ class AssignmentListCreateView(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticatedOrReadOnly] # Allow read-only access for unauthenticated users
 
     def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+        serializer.save(owner=self.request.user) # Set the owner to the logged-in user
 
 # Retrieve, Update, and Delete an Assignment
 class AssignmentDetailView(generics.RetrieveUpdateDestroyAPIView):
