@@ -13,9 +13,6 @@ class TaskListCreateView(generics.ListCreateAPIView):
     serializer_class = TaskSerializer
     permission_classes = [IsAuthenticatedOrReadOnly] # Allow read-only access for unauthenticated users
 
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
-
 # Retrieve, Update, and Delete a Task
 class TaskDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Task.objects.all()
