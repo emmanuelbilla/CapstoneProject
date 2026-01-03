@@ -43,6 +43,14 @@ class TestAssignmentsAPI:
             status='pending'
         )
 
+        self.assignment = VolunteerAssignment.objects.create(
+            owner=self.owner,
+            task=self.task,
+            user=self.assignee
+        )
+
+    
+
       
 
     def test_anonymous_can_view_assignments(self):
