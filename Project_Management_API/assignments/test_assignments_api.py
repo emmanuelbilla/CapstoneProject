@@ -85,3 +85,13 @@ class TestAssignmentsAPI:
 
         # Assert that the response status code is 403 Forbidden
         assert response.status_code == status.HTTP_403_FORBIDDEN
+    
+    def test_non_owner_cannot_assign_volunteer(self):
+        self.client.force_authenticate(user=self.other_user)
+
+        payload = {
+            'project': self.project.id,
+            'volunteer': self.assignee.id,
+        }
+        response = self.client.post('/api/assignments/', payload)
+        assert response.status_code == status.HTTP_403_FORBIDDEN
