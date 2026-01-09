@@ -1,8 +1,9 @@
-from django.urls import path
-from .views import AssignmentListCreateView, AssignmentDetailView
+#from django.urls import path
+from rest_framework.routers import DefaultRouter
+from .views import VolunteerAssignmentViewSet
+
+router = DefaultRouter()
+router.register(r'assignments', VolunteerAssignmentViewSet, basename='assignments')
 
 
-urlpatterns = [
-    path('', AssignmentListCreateView.as_view(), name='assignment-list-create'),
-    path('<int:pk>/', AssignmentDetailView.as_view(), name='assignment-detail'),
-]
+urlpatterns = router.urls

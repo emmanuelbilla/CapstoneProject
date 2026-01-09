@@ -26,7 +26,7 @@ urlpatterns = [
     path('api/users/', include('users.urls')),
     path('api/projects/', include('projects.urls')),
     path('api/tasks/', include('tasks.urls')),
-    path('api/assignments/', include('assignments.urls')),
+    path('api/', include('assignments.urls')),
 ]
 
 # Add the token authentication endpoint

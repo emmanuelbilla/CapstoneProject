@@ -11,3 +11,11 @@ class VolunteerAssignmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = VolunteerAssignment
         fields = '__all__'  # Include all fields of the model
+    
+def validate(self, data):
+    if VolunteerAssignment.objects.filter(
+        user=data['user'],
+        task=data['task']
+    ).exists():
+        raise serializers.ValidationError("This user is already assigned to this task.")
+    return data
