@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    # Added apps
     'projects',
     'users',
     'tasks',
@@ -151,3 +152,5 @@ STORAGES = {
     },
 }
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+DJANGO_SETTINGS_MODULE = 'Project_Management_API.settings'
